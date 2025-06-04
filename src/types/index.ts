@@ -1,3 +1,4 @@
+// Event handler function type
 type HandleEvent = (e: React.MouseEvent<HTMLButtonElement>) => void;
 export type HandleClickProps = {
   handleClick: HandleEvent;
@@ -11,7 +12,9 @@ export type HandleSubmitProps = {
 export type FormProps = HandleSubmitProps;
 
 // Memory card props type
-export type MemoryCardProps = HandleClickProps;
+export type MemoryCardProps = {
+  handleClickAction: HandleEvent;
+};
 
 // Regular button props type
 export type RegularButtonProps = HandleClickProps & {
