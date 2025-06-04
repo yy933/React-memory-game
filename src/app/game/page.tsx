@@ -21,7 +21,7 @@ export default function GamePage() {
   }
   return (
     <main>
-      <MemoryCard handleClick={turnCard} />
+      <MemoryCard handleClickAction={turnCard} />
     </main>
   );
 }
