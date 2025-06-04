@@ -1,9 +1,12 @@
+import Link from 'next/link';
 export default function Navbar() {
-  return(
+  return (
     <header>
       <nav className="navbar">
-        <h1>Memory Game</h1>
+        <Link href="/">
+          <h1>Memory Game</h1>
+        </Link>
       </nav>
     </header>
-  )
+  );
 }

@@ -47,6 +47,11 @@ main {
   box-shadow: 0 0 5px 2px var(--light-primary);
 }
 
+a{
+  text-decoration: none;
+  color: var(--light-primary);
+}
+
 /*===========================
 Typography
 ============================*/
@@ -112,8 +117,8 @@ Buttons
 
 .btn--text:hover,
 .btn--text:focus {
-  background-color: var(--light-primary);
-  color: var(--dark-primary);
+  background-color: var(--dark-secondary);
+  color: var(--light-primary);
   box-shadow: 0 0 5px 1px var(--dark-primary);
 }
 
