@@ -3,9 +3,22 @@ import { useState } from "react";
 export function useGameLogic() {
   const [isGameOn, setIsGameOn] = useState(false);
 
-  function startGame(e: React.MouseEvent<HTMLButtonElement>) {
+  async function startGame(e: React.MouseEvent<HTMLButtonElement>) {
+    
     e.preventDefault();
-    setIsGameOn(true);
+    try {
+      const response = await fetch("https://emojihub.yurace.pro/api/all/category/animals-and-nature");
+      if (!response.ok){
+        throw new Error('Could not fetch data')
+      }
+      const data = await response.json()
+      
+      setIsGameOn(true);
+    } catch(error) {
+      console.error("Error: ", error)
+
+    }
+    
   }
 
   return { isGameOn, startGame };
