@@ -1,29 +1,33 @@
-import { useState } from "react";
-import { EmojiData } from '@/types'
+'use client';
+// import { useState } from "react";
+// import { EmojiData } from "@/types";
+import { useEmojiStore } from "@/stores/useEmojiStore";
+
 export function useGameLogic() {
-  const [isGameOn, setIsGameOn] = useState(false);
-  const [emojisdata, setEmojidata] = useState<EmojiData[]>([])
-  console.log(emojisdata);
+  const emojisdata = useEmojiStore((state) => state.emojisdata); 
+  const isGameOn = useEmojiStore((state) => state.isGameOn); 
+  const setEmojidata = useEmojiStore((state) => state.setEmojis);
+  const setIsGameOn = useEmojiStore((state) => state.setGameOn);
 
   async function startGame(e: React.MouseEvent<HTMLButtonElement>) {
-    
     e.preventDefault();
-    try {
-      const response = await fetch("https://emojihub.yurace.pro/api/all/category/animals-and-nature");
-      if (!response.ok){
-        throw new Error('Could not fetch data')
-      }
-      const data = await response.json()
-      const dataSample = data.slice(0, 5)
-      
-      setEmojidata(dataSample)
-      setIsGameOn(true);
-    } catch(error) {
-      console.error("Error: ", error)
 
+    try {
+      const response = await fetch(
+        "https://emojihub.yurace.pro/api/all/category/animals-and-nature"
+      );
+      if (!response.ok) {
+        throw new Error("Could not fetch data");
+      }
+      const data = await response.json();
+      const dataSample = data.slice(0, 10);
+
+      setEmojidata(dataSample);
+      setIsGameOn(true);
+    } catch (error) {
+      console.error("Error: ", error);
     }
-    
   }
 
-  return { isGameOn, startGame };
+  return { isGameOn, startGame, emojisdata };
 }
