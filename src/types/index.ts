@@ -18,6 +18,12 @@ export type RegularButtonProps = HandleClickProps & {
   children: React.ReactNode;
 };
 
+// Home link props type
+export type HomeLinkProps = {
+  children: React.ReactNode;
+  className?: string;
+};
+
 // Emoji data type
 export type EmojiData = {
   name?: string;

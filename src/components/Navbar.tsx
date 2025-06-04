@@ -1,14 +1,13 @@
 'use client'
-import Link from 'next/link';
-import { useEmojiStore } from '@/stores/useEmojiStore';
+import HomeLink from './HomeLink';
 export default function Navbar() {
-  const setGameOn = useEmojiStore((state) => state.setGameOn);
+  
   return (
     <header>
       <nav className="navbar">
-        <Link href="/" onClick={() => setGameOn(false)}>
+        <HomeLink>
           <h1>Memory Game</h1>
-        </Link>
+        </HomeLink>
       </nav>
     </header>
   );
