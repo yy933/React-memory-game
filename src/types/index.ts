@@ -17,3 +17,12 @@ export type MemoryCardProps = HandleClickProps;
 export type RegularButtonProps = HandleClickProps & {
   children: React.ReactNode;
 };
+
+// Emoji data type
+export type EmojiData = {
+  name?: string;
+  category?: string;
+  group?: string;
+  htmlCode?: string[];
+  unicode?: string[];
+};
