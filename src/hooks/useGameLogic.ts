@@ -1,11 +1,11 @@
-'use client';
-// import { useState } from "react";
-// import { EmojiData } from "@/types";
+"use client";
 import { useEmojiStore } from "@/stores/useEmojiStore";
+import { getRandomSample } from "@/utils/getRandomSample";
+import { EmojiData } from "@/types";
 
 export function useGameLogic() {
-  const emojisdata = useEmojiStore((state) => state.emojisdata); 
-  const isGameOn = useEmojiStore((state) => state.isGameOn); 
+  const emojisdata = useEmojiStore((state) => state.emojisdata);
+  const isGameOn = useEmojiStore((state) => state.isGameOn);
   const setEmojidata = useEmojiStore((state) => state.setEmojis);
   const setIsGameOn = useEmojiStore((state) => state.setGameOn);
 
@@ -19,8 +19,8 @@ export function useGameLogic() {
       if (!response.ok) {
         throw new Error("Could not fetch data");
       }
-      const data = await response.json();
-      const dataSample = data.slice(0, 10);
+      const data = (await response.json()) as EmojiData[];
+      const dataSample = getRandomSample(data, 10);
 
       setEmojidata(dataSample);
       setIsGameOn(true);
