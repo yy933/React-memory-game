@@ -4,8 +4,7 @@ import { useEmojiStore } from "@/stores/useEmojiStore";
 import { decode } from "html-entities";
 export default function MemoryCard({ handleClickAction }: MemoryCardProps) {
   const emojisdata = useEmojiStore((state) => state.emojisdata);
-
-  const emojiEl = emojisdata.map((emojiData, index) => (
+    const emojiEl = emojisdata.map((emojiData, index) => (
     <li key={index} className="card-item">
       <button className="btn btn--emoji" onClick={handleClickAction}>
         {emojiData?.htmlCode && emojiData.htmlCode[0]

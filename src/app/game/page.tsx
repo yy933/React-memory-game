@@ -1,21 +1,17 @@
-// game/page.tsx
 "use client";
-import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useEmojiStore } from "@/stores/useEmojiStore";
+import { useGameLogic } from "@/hooks/useGameLogic"; 
 import MemoryCard from "@/components/MemoryCard";
 
 export default function GamePage() {
   const emojisdata = useEmojiStore((state) => state.emojisdata);
-  const router = useRouter();
-
-  // 防呆：如果沒有 emoji 資料，導回首頁
-  useEffect(() => {
+  const { getEmojiDatafromAPI } = useGameLogic();
+    useEffect(() => {
     if (emojisdata.length === 0) {
-      router.replace("/");
-    
+      getEmojiDatafromAPI()
     }
-  }, [emojisdata, router]);
+  }, [emojisdata, getEmojiDatafromAPI]);
   function turnCard() {
     console.log("Memory card clicked");
   }

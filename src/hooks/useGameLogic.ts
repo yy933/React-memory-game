@@ -9,9 +9,7 @@ export function useGameLogic() {
   const setEmojidata = useEmojiStore((state) => state.setEmojis);
   const setIsGameOn = useEmojiStore((state) => state.setGameOn);
 
-  async function startGame(e: React.MouseEvent<HTMLButtonElement>) {
-    e.preventDefault();
-
+  async function getEmojiDatafromAPI() {
     try {
       const response = await fetch(
         "https://emojihub.yurace.pro/api/all/category/animals-and-nature"
@@ -20,14 +18,27 @@ export function useGameLogic() {
         throw new Error("Could not fetch data");
       }
       const data = (await response.json()) as EmojiData[];
-      const dataSample = getRandomSample(data, 10);
+      const dataSlice = getDataSlice(data);
 
-      setEmojidata(dataSample);
+      setEmojidata(dataSlice);
       setIsGameOn(true);
     } catch (error) {
       console.error("Error: ", error);
     }
   }
 
-  return { isGameOn, startGame, emojisdata };
+  function startGame(e: React.MouseEvent<HTMLButtonElement>) {
+    e.preventDefault();
+    getEmojiDatafromAPI();
+  }
+
+  return { isGameOn, startGame, emojisdata, getEmojiDatafromAPI };
+}
+
+function getDataSlice(data: EmojiData[]) {
+  const randomIndices = getRandomSample(data, 10);
+  const dataSlice = randomIndices.map((randomData: EmojiData) =>
+    randomData ? randomData : {}
+  );
+  return dataSlice;
 }
