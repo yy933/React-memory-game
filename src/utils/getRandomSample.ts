@@ -9,5 +9,9 @@ export function getRandomSample<T>(data: T[], size: number): T[] {
       i--;
     }
   }
-  return randomIndicesArray.map((index) => data[index]);
+  const dataSlice = randomIndicesArray.reduce<T[]>((array, index) => {
+    array.push(data[index]);
+    return array;
+  }, []);
+  return dataSlice;
 }

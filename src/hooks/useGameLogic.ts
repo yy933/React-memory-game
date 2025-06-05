@@ -18,7 +18,7 @@ export function useGameLogic() {
         throw new Error("Could not fetch data");
       }
       const data = (await response.json()) as EmojiData[];
-      const dataSlice = getDataSlice(data);
+      const dataSlice = getRandomSample(data, 10);
 
       setEmojidata(dataSlice);
       setIsGameOn(true);
@@ -35,10 +35,4 @@ export function useGameLogic() {
   return { isGameOn, startGame, emojisdata, getEmojiDatafromAPI };
 }
 
-function getDataSlice(data: EmojiData[]) {
-  const randomIndices = getRandomSample(data, 10);
-  const dataSlice = randomIndices.map((randomData: EmojiData) =>
-    randomData ? randomData : {}
-  );
-  return dataSlice;
-}
+
