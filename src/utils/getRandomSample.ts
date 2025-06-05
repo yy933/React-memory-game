@@ -13,5 +13,17 @@ export function getRandomSample<T>(data: T[], size: number): T[] {
     array.push(data[index]);
     return array;
   }, []);
-  return dataSlice;
+
+  function getEmojiArray(data: T[]) {
+    const pairedEmojisArray: T[] = [...data, ...data];
+    for (let i = pairedEmojisArray.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const temp = pairedEmojisArray[i];
+      pairedEmojisArray[i] = pairedEmojisArray[j];
+      pairedEmojisArray[j] = temp;
+    }
+
+    return pairedEmojisArray;
+  }
+  return getEmojiArray(dataSlice);
 }
