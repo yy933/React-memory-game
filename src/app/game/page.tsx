@@ -17,7 +17,7 @@ export default function GamePage() {
 
   return (
     <main>
-      <MemoryCard handleClickAction={turnCard} />
+      <MemoryCard handleClickAction={turnCard} data={emojisdata} />
     </main>
   );
 }

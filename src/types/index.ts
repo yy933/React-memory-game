@@ -14,7 +14,7 @@ export type FormProps = HandleSubmitProps;
 // Memory Card props type
 export type MemoryCardProps = {
   handleClickAction: (name: string, index: number) => void;
-  emojisdata: EmojiData[];
+  data: EmojiData[];
 };
 
 // Emoji Button props type

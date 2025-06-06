@@ -4,10 +4,12 @@ import { decode } from "html-entities";
 import { MemoryCardProps } from "@/types";
 
 
-
-export default function MemoryCard({ handleClickAction, emojisdata }: MemoryCardProps) {
- 
-  const cardEl = emojisdata.map((emojiData, index) => (
+export default function MemoryCard({
+  handleClickAction,
+  data
+}: MemoryCardProps) {
+  
+  const cardEl = data.map((emojiData, index) => (
     <li key={index} className="card-item">
       <EmojiButton
         name={emojiData.name ?? "unknown"}
@@ -22,7 +24,6 @@ export default function MemoryCard({ handleClickAction, emojisdata }: MemoryCard
       />
     </li>
   ));
-  
 
   return <ul className="card-container">{cardEl}</ul>;
 }
