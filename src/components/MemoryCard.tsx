@@ -1,19 +1,28 @@
 "use client";
-import { MemoryCardProps } from "@/types";
-import { useEmojiStore } from "@/stores/useEmojiStore";
+import EmojiButton from "./EmojiButton";
 import { decode } from "html-entities";
-export default function MemoryCard({ handleClickAction }: MemoryCardProps) {
-  const emojisdata = useEmojiStore((state) => state.emojisdata);
-    const emojiEl = emojisdata.map((emojiData, index) => (
+import { MemoryCardProps } from "@/types";
+
+
+
+export default function MemoryCard({ handleClickAction, emojisdata }: MemoryCardProps) {
+ 
+  const cardEl = emojisdata.map((emojiData, index) => (
     <li key={index} className="card-item">
-      <button className="btn btn--emoji" 
-      onClick={() => handleClickAction(emojiData.name ?? 'unknown', index)}>
-        {emojiData?.htmlCode && emojiData.htmlCode[0]
-          ? decode(emojiData.htmlCode[0])
-          : "?"}
-      </button>
+      <EmojiButton
+        name={emojiData.name ?? "unknown"}
+        index={index}
+        content={
+          emojiData?.htmlCode && emojiData.htmlCode[0]
+            ? decode(emojiData.htmlCode[0])
+            : "?"
+        }
+        style="btn btn--emoji"
+        handleClickAction={handleClickAction}
+      />
     </li>
   ));
+  
 
-  return <ul className="card-container">{emojiEl}</ul>;
+  return <ul className="card-container">{cardEl}</ul>;
 }

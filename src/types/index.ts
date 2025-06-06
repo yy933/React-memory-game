@@ -11,8 +11,18 @@ export type HandleSubmitProps = {
 // Form props type
 export type FormProps = HandleSubmitProps;
 
-// Memory card props type
+// Memory Card props type
 export type MemoryCardProps = {
+  handleClickAction: (name: string, index: number) => void;
+  emojisdata: EmojiData[];
+};
+
+// Emoji Button props type
+export type EmojiButtonProps = {
+  content: string;
+  style?: string;
+  name: string;
+  index: number;
   handleClickAction: (name: string, index: number) => void;
 };
 
@@ -35,5 +45,3 @@ export type EmojiData = {
   htmlCode?: string[];
   unicode?: string[];
 };
-
-
