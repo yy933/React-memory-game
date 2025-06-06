@@ -5,13 +5,21 @@ import { EmojiData } from "@/types";
 type EmojiStore = {
   emojisdata: EmojiData[];
   isGameOn: boolean;
-  setEmojis: (data: EmojiData[]) => void;
-  setGameOn: (isOn: boolean) => void;
+  matchedCards: { name: string; index: number }[];
+  isGameOver: boolean;
+  setEmojis: (emojis: EmojiData[]) => void;
+  setGameOn: (isGameOn: boolean) => void;
+  setMatchedCards: (cards: { name: string; index: number }[]) => void;
+  setGameOver: (isGameOver: boolean) => void;
 };
 
 export const useEmojiStore = create<EmojiStore>((set) => ({
   emojisdata: [],
   isGameOn: false,
-  setEmojis: (data) => set({ emojisdata: data }),
-  setGameOn: (isOn) => set({ isGameOn: isOn }),
+  matchedCards: [],
+  isGameOver: false,
+  setEmojis: (emojis) => set({ emojisdata: emojis }),
+  setGameOn: (isGameOn) => set({ isGameOn }),
+  setMatchedCards: (cards) => set({ matchedCards: cards }),
+  setGameOver: (isGameOver) => set({ isGameOver }),
 }));

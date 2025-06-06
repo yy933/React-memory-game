@@ -4,11 +4,13 @@ import { getRandomSample } from "@/utils/getRandomSample";
 import { EmojiData } from "@/types";
 
 export function useGameLogic() {
+  // Accessing the store state and actions
   const emojisdata = useEmojiStore((state) => state.emojisdata);
   const isGameOn = useEmojiStore((state) => state.isGameOn);
   const setEmojidata = useEmojiStore((state) => state.setEmojis);
   const setIsGameOn = useEmojiStore((state) => state.setGameOn);
 
+  // get emoji data from API
   async function getEmojiDatafromAPI() {
     try {
       const response = await fetch(
@@ -32,7 +34,10 @@ export function useGameLogic() {
     getEmojiDatafromAPI();
   }
 
-  return { isGameOn, startGame, emojisdata, getEmojiDatafromAPI };
+  return {
+    isGameOn,
+    startGame,
+    emojisdata,
+    getEmojiDatafromAPI,
+  };
 }
-
-

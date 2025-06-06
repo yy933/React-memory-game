@@ -35,3 +35,5 @@ export type EmojiData = {
   htmlCode?: string[];
   unicode?: string[];
 };
+
+
