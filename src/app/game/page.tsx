@@ -1,20 +1,20 @@
 "use client";
 import { useEffect } from "react";
 import { useEmojiStore } from "@/stores/useEmojiStore";
-import { useGameLogic } from "@/hooks/useGameLogic"; 
+import { useGameLogic } from "@/hooks/useGameLogic";
+import { useMatchingLogic } from "@/hooks/useMatchingLogic";
 import MemoryCard from "@/components/MemoryCard";
 
 export default function GamePage() {
   const emojisdata = useEmojiStore((state) => state.emojisdata);
   const { getEmojiDatafromAPI } = useGameLogic();
-    useEffect(() => {
+  const { turnCard } = useMatchingLogic();
+  useEffect(() => {
     if (emojisdata.length === 0) {
-      getEmojiDatafromAPI()
+      getEmojiDatafromAPI();
     }
   }, [emojisdata, getEmojiDatafromAPI]);
-  function turnCard() {
-    console.log("Memory card clicked");
-  }
+
   return (
     <main>
       <MemoryCard handleClickAction={turnCard} />

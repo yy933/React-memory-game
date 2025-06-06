@@ -13,7 +13,7 @@ export type FormProps = HandleSubmitProps;
 
 // Memory card props type
 export type MemoryCardProps = {
-  handleClickAction: HandleEvent;
+  handleClickAction: (name: string, index: number) => void;
 };
 
 // Regular button props type
