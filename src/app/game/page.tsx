@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useEmojiStore } from "@/stores/useEmojiStore";
 import { useGameLogic } from "@/hooks/useGameLogic";
 import { useMatchingLogic } from "@/hooks/useMatchingLogic";
-import MemoryCard from "@/components/MemoryCard";
+import MemoryCardList from "@/components/MemoryCardList";
 
 export default function GamePage() {
   const emojisdata = useEmojiStore((state) => state.emojisdata);
@@ -17,7 +17,7 @@ export default function GamePage() {
 
   return (
     <main>
-      <MemoryCard handleClickAction={turnCard} data={emojisdata} />
+      <MemoryCardList handleClickAction={turnCard} data={emojisdata} />
     </main>
   );
 }

@@ -17,6 +17,14 @@ export type MemoryCardProps = {
   data: EmojiData[];
 };
 
+// Memory Card Item props type
+export type MemoryCardItemProps = {
+  name: string;
+  index: number;
+  htmlCode: string[];
+  handleClickAction: (name: string, index: number) => void;
+};
+
 // Emoji Button props type
 export type EmojiButtonProps = {
   content: string;
