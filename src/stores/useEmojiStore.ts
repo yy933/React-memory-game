@@ -10,7 +10,7 @@ type EmojiStore = {
   setEmojis: (emojis: EmojiData[]) => void;
   setGameOn: (isGameOn: boolean) => void;
   setMatchedCards: (cards: { name: string; index: number }[]) => void;
-  setareAllCardsMatched: (isGameOver: boolean) => void;
+  setAreAllCardsMatched: (areAllCardsMatched: boolean) => void;
 };
 
 export const useEmojiStore = create<EmojiStore>((set) => ({
@@ -21,5 +21,5 @@ export const useEmojiStore = create<EmojiStore>((set) => ({
   setEmojis: (emojis) => set({ emojisdata: emojis }),
   setGameOn: (isGameOn) => set({ isGameOn }),
   setMatchedCards: (cards) => set({ matchedCards: cards }),
-  setareAllCardsMatched: (areAllCardsMatched) => set({ areAllCardsMatched }),
+  setAreAllCardsMatched: (areAllCardsMatched) => set({ areAllCardsMatched }),
 }));
