@@ -24,6 +24,11 @@ export default function MemoryCardItem({
     }
   };
   const safeHtmlCode = DOMPurify.sanitize(htmlCode.join(""));
+  const btnAria = isMatched
+    ? `${name}. Matched.`
+    : isSelected
+    ? `${name}}. Not matched yet.`
+    : "Card upside down.";
 
   return (
     <li className="card-item">
@@ -34,7 +39,9 @@ export default function MemoryCardItem({
           "btn--emoji--selected": isSelected,
         })}
         onClick={handleClick}
-        disabled={isMatched}
+        disabled={isMatched || isSelected}
+        aria-live="polite"
+        aria-label={`Position ${index + 1}. ${btnAria}`}
       >
         <div
           className={clsx("card-face", "card-face--front")}

@@ -11,7 +11,6 @@ export function useMatchingLogic() {
   >([]);
 
   // if selected cards match, add them to matched cards and reset selected cards
-
   useEffect(() => {
     if (
       selectedCards.length === 2 &&
@@ -42,13 +41,14 @@ export function useMatchingLogic() {
 
   // when user selecting a card, add it to selected cards array
   function turnCard(name: string, index: number) {
+    console.log('Clicked')
     const selectedCardEntry = selectedCards.find(
       (card) => card.index === index
     );
     if (!selectedCardEntry && selectedCards.length < 2) {
       setSelectedCards((prevSelectedCards) => [
         ...prevSelectedCards,
-        { name, index },
+        { name, index }
       ]);
     } else if (!selectedCardEntry && selectedCards.length === 2) {
       setSelectedCards([{ name, index }]);
