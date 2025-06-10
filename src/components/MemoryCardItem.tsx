@@ -1,8 +1,8 @@
 "use client";
-
 import clsx from "clsx";
 import { MemoryCardItemProps } from "@/types";
-// import {useState} from "react";
+import DOMPurify from "dompurify";
+
 export default function MemoryCardItem({
   name,
   index,
@@ -23,6 +23,7 @@ export default function MemoryCardItem({
       handleClickAction(name, index);
     }
   };
+  const safeHtmlCode = DOMPurify.sanitize(htmlCode.join(""));
 
   return (
     <li className="card-item">
@@ -37,7 +38,7 @@ export default function MemoryCardItem({
       >
         <div
           className={clsx("card-face", "card-face--front")}
-          dangerouslySetInnerHTML={{ __html: htmlCode.join("") }}
+          dangerouslySetInnerHTML={{ __html: safeHtmlCode }}
         />
         <div className={clsx("card-face", "card-face--back")}>?</div>
       </button>
