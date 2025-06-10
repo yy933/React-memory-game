@@ -11,10 +11,12 @@ export type HandleSubmitProps = {
 // Form props type
 export type FormProps = HandleSubmitProps;
 
-// Memory Card props type
-export type MemoryCardProps = {
+// Memory Card List props type
+export type MemoryCardListProps = {
   handleClickAction: (name: string, index: number) => void;
   data: EmojiData[];
+  selectedCards: { name: string; index: number }[];
+  matchedCards: { name: string; index: number }[];
 };
 
 // Memory Card Item props type
@@ -23,15 +25,19 @@ export type MemoryCardItemProps = {
   index: number;
   htmlCode: string[];
   handleClickAction: (name: string, index: number) => void;
+  selectedCards: { name: string; index: number }[]; 
+  matchedCards: { name: string; index: number }[]; 
 };
 
 // Emoji Button props type
 export type EmojiButtonProps = {
   content: string;
-  style?: string;
+  className?: string;
   name: string;
   index: number;
   handleClickAction: (name: string, index: number) => void;
+  selectedCardEntry: { name: string; index: number } | undefined;
+  matchedCardEntry: { name: string; index: number } | undefined;
 };
 
 // Regular button props type

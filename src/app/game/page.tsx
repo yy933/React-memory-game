@@ -8,7 +8,7 @@ import MemoryCardList from "@/components/MemoryCardList";
 export default function GamePage() {
   const emojisdata = useEmojiStore((state) => state.emojisdata);
   const { getEmojiDatafromAPI } = useGameLogic();
-  const { turnCard } = useMatchingLogic();
+  const { turnCard, selectedCards, matchedCards } = useMatchingLogic();
   useEffect(() => {
     if (emojisdata.length === 0) {
       getEmojiDatafromAPI();
@@ -17,7 +17,12 @@ export default function GamePage() {
 
   return (
     <main>
-      <MemoryCardList handleClickAction={turnCard} data={emojisdata} />
+      <MemoryCardList
+        handleClickAction={turnCard}
+        data={emojisdata}
+        selectedCards={selectedCards}
+        matchedCards={matchedCards}
+      />
     </main>
   );
 }

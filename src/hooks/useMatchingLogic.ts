@@ -11,19 +11,29 @@ export function useMatchingLogic() {
   >([]);
 
   // if selected cards match, add them to matched cards and reset selected cards
+
   useEffect(() => {
     if (
       selectedCards.length === 2 &&
       selectedCards[0].name === selectedCards[1].name
     ) {
-      setMatchedCards([...matchedCards, ...selectedCards]);
+      // avoid the cards that already matched to be added again
+      const newMatchedCards = selectedCards.filter((card) => {
+        return !matchedCards.some((prevCard) => prevCard.index === card.index);
+      });
+      setMatchedCards([...matchedCards, ...newMatchedCards]);
 
       setTimeout(() => {
         setSelectedCards([]);
       }, 500);
+    } else if (selectedCards.length === 2) {
+      setTimeout(() => {
+        setSelectedCards([]);
+      }, 500);
     }
-  }, [selectedCards, matchedCards, setMatchedCards]);
+  }, [selectedCards, setMatchedCards]);
 
+  // if all cards are matched, set game over
   useEffect(() => {
     if (emojisdata.length && matchedCards.length === emojisdata.length) {
       setGameOver(true);
@@ -45,5 +55,5 @@ export function useMatchingLogic() {
     }
   }
 
-  return { turnCard, selectedCards };
+  return { turnCard, selectedCards, matchedCards };
 }
