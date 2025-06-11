@@ -11,9 +11,10 @@ import Confetti from "react-confetti";
 export default function GamePage() {
   const emojisData = useEmojiStore((state) => state.emojisdata);
   const areAllCardsMatched = useEmojiStore((state) => state.areAllCardsMatched);
-  const { getEmojiDatafromAPI } = useGameLogic();
-  const { turnCard, selectedCards, matchedCards } = useMatchingLogic();
+  const { getEmojiDatafromAPI, resetGame } = useGameLogic();
+  const { turnCard, selectedCards, matchedCards, resetSelectedCards } = useMatchingLogic();
 
+  // if the emoji data is empty, get the emoji data from API
   useEffect(() => {
     if (emojisData.length === 0) {
       getEmojiDatafromAPI();
@@ -25,7 +26,12 @@ export default function GamePage() {
       <AssistiveTechInfo emojisData={emojisData} matchedCards={matchedCards} />
       {typeof window !== "undefined" && areAllCardsMatched && (
         <>
-          <GameOver />
+          <GameOver
+            handleClick={() => {
+              resetGame();
+              resetSelectedCards();
+            }}
+          />
           <Confetti width={window.innerWidth} height={window.innerHeight} />
         </>
       )}

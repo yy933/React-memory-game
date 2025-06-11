@@ -9,6 +9,7 @@ export type RegularButtonProps = {
 
 export type HandleSubmitProps = { handleSubmit: HandleEvent };
 export type FormProps = HandleSubmitProps;
+export type GameOverProps = { handleClick: HandleEvent };
 
 export type HomeLinkProps = {
   children: React.ReactNode;

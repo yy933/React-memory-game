@@ -54,5 +54,9 @@ export function useMatchingLogic() {
     }
   }
 
-  return { turnCard, selectedCards, matchedCards };
+  function resetSelectedCards() {
+    setSelectedCards([]);
+  }
+
+  return { turnCard, selectedCards, matchedCards, resetSelectedCards };
 }

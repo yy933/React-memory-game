@@ -2,6 +2,7 @@
 import { useEmojiStore } from "@/stores/useEmojiStore";
 import { getRandomSample } from "@/utils/getRandomSample";
 import { EmojiData } from "@/types";
+import { useCallback, useState } from "react";
 
 export function useGameLogic() {
   // Accessing the store state and actions
@@ -9,10 +10,27 @@ export function useGameLogic() {
   const isGameOn = useEmojiStore((state) => state.isGameOn);
   const setEmojidata = useEmojiStore((state) => state.setEmojis);
   const setIsGameOn = useEmojiStore((state) => state.setGameOn);
+  const setMatchedCards = useEmojiStore((state) => state.setMatchedCards);
+  const setAreAllCardsMatched = useEmojiStore(
+    (state) => state.setAreAllCardsMatched
+  );
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Reset Game
+  const resetGame = useCallback(() => {
+    setIsGameOn(false);
+    setAreAllCardsMatched(false);
+    setMatchedCards([]);
+    setEmojidata([]);
+  }, [setIsGameOn, setAreAllCardsMatched, setMatchedCards, setEmojidata]);
+
 
   // get emoji data from API
-  async function getEmojiDatafromAPI() {
+  const getEmojiDatafromAPI = useCallback(async () => {
+    if (isLoading) return;
     try {
+      setIsLoading(true);
+      resetGame();
       const response = await fetch(
         "https://emojihub.yurace.pro/api/all/category/animals-and-nature"
       );
@@ -26,18 +44,27 @@ export function useGameLogic() {
       setIsGameOn(true);
     } catch (error) {
       console.error("Error: ", error);
+    } finally {
+      setIsLoading(false);
     }
-  }
+  }, [resetGame, setEmojidata, setIsGameOn]);
 
-  function startGame(e: React.MouseEvent<HTMLButtonElement>) {
-    e.preventDefault();
-    getEmojiDatafromAPI();
-  }
 
+  // Start Game
+  const startGame = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.preventDefault();
+      getEmojiDatafromAPI();
+    },
+    [getEmojiDatafromAPI]
+  );
+
+  
   return {
     isGameOn,
     startGame,
     emojisdata,
     getEmojiDatafromAPI,
+    resetGame,
   };
 }

@@ -1,8 +1,5 @@
-// stores/useEmojiStore.ts
 import { create } from "zustand";
 import { EmojiStore } from "@/types";
-
-
 
 export const useEmojiStore = create<EmojiStore>((set) => ({
   emojisdata: [],
