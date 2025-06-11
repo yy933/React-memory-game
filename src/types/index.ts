@@ -50,3 +50,16 @@ export type AssistiveTechInfoProps = {
   emojisData: EmojiData[];
   matchedCards: MemoryCard[];
 };
+
+
+// Emoji store types
+export type EmojiStore = {
+  emojisdata: EmojiData[];
+  isGameOn: boolean;
+  matchedCards: MemoryCard[];
+  areAllCardsMatched: boolean;
+  setEmojis: (emojis: EmojiData[]) => void;
+  setGameOn: (isGameOn: boolean) => void;
+  setMatchedCards: (cards: MemoryCard[]) => void;
+  setAreAllCardsMatched: (areAllCardsMatched: boolean) => void;
+};
