@@ -1,47 +1,21 @@
-// Event handler function type
-type HandleEvent = (e: React.MouseEvent<HTMLButtonElement>) => void;
-export type HandleClickProps = {
+// handle event type
+export type HandleEvent = (e: React.MouseEvent<HTMLButtonElement>) => void;
+
+// common component types
+export type RegularButtonProps = {
   handleClick: HandleEvent;
-};
-
-export type HandleSubmitProps = {
-  handleSubmit: HandleEvent;
-};
-
-// Form props type
-export type FormProps = HandleSubmitProps;
-
-// Memory Card List props type
-export type MemoryCardListProps = {
-  handleClickAction: (name: string, index: number) => void;
-  data: EmojiData[];
-  selectedCards: { name: string; index: number }[];
-  matchedCards: { name: string; index: number }[];
-};
-
-// Memory Card Item props type
-export type MemoryCardItemProps = {
-  name: string;
-  index: number;
-  htmlCode: string[];
-  handleClickAction: (name: string, index: number) => void;
-  selectedCards: { name: string; index: number }[]; 
-  matchedCards: { name: string; index: number }[]; 
-};
-
-
-// Regular button props type
-export type RegularButtonProps = HandleClickProps & {
   children: React.ReactNode;
 };
 
-// Home link props type
+export type HandleSubmitProps = { handleSubmit: HandleEvent };
+export type FormProps = HandleSubmitProps;
+
 export type HomeLinkProps = {
   children: React.ReactNode;
   className?: string;
 };
 
-// Emoji data type
+// game data related types
 export type EmojiData = {
   name?: string;
   category?: string;
@@ -50,8 +24,29 @@ export type EmojiData = {
   unicode?: string[];
 };
 
-// Assistive Tech Info Type
+export type MemoryCard = {
+  name: string;
+  index: number;
+};
+
+export type MemoryCardListProps = {
+  handleClickAction: (name: string, index: number) => void;
+  data: EmojiData[];
+  selectedCards: MemoryCard[];
+  matchedCards: MemoryCard[];
+};
+
+export type MemoryCardItemProps = {
+  name: string;
+  index: number;
+  htmlCode: string[];
+  handleClickAction: (name: string, index: number) => void;
+  selectedCards: MemoryCard[];
+  matchedCards: MemoryCard[];
+};
+
+// assistive tech info type
 export type AssistiveTechInfoProps = {
   emojisData: EmojiData[];
-  matchedCards: { name: string; index: number }[];
+  matchedCards: MemoryCard[];
 };
