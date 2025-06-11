@@ -29,16 +29,6 @@ export type MemoryCardItemProps = {
   matchedCards: { name: string; index: number }[]; 
 };
 
-// Emoji Button props type
-export type EmojiButtonProps = {
-  content: string;
-  className?: string;
-  name: string;
-  index: number;
-  handleClickAction: (name: string, index: number) => void;
-  selectedCardEntry: { name: string; index: number } | undefined;
-  matchedCardEntry: { name: string; index: number } | undefined;
-};
 
 // Regular button props type
 export type RegularButtonProps = HandleClickProps & {
@@ -58,4 +48,10 @@ export type EmojiData = {
   group?: string;
   htmlCode?: string[];
   unicode?: string[];
+};
+
+// Assistive Tech Info Type
+export type AssistiveTechInfoProps = {
+  emojisData: EmojiData[];
+  matchedCards: { name: string; index: number }[];
 };

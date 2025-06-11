@@ -3,6 +3,7 @@ import clsx from "clsx";
 import { MemoryCardItemProps } from "@/types";
 import DOMPurify from "dompurify";
 
+
 export default function MemoryCardItem({
   name,
   index,
@@ -23,7 +24,7 @@ export default function MemoryCardItem({
       handleClickAction(name, index);
     }
   };
-  const safeHtmlCode = DOMPurify.sanitize(htmlCode.join(""));
+  const safeHtmlCode = DOMPurify.sanitize(htmlCode.join(""))
   const btnAria = isMatched
     ? `${name}. Matched.`
     : isSelected
