@@ -44,7 +44,7 @@ export function useGameLogic() {
       setIsGameOn(true);
     } catch (error) {
       console.error("Error: ", error);
-    } finally {
+    } finally{
       setIsLoading(false);
     }
   }, [resetGame, setEmojidata, setIsGameOn]);

@@ -1,9 +1,9 @@
 import React from "react";
 import RegularButton from "./RegularButton";
-import { FormProps } from "@/types";
+import { StartGameBtnProps } from "@/types";
 import Link from "next/link";
 
-export default function Form({ handleSubmit }: FormProps) {
+export default function StartGameBtn({ handleSubmit }: StartGameBtnProps) {
   return (
     <form className="wrapper">
       <RegularButton handleClick={handleSubmit}>
