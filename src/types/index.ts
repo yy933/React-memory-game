@@ -2,59 +2,61 @@
 export type HandleEvent = (e: React.MouseEvent<HTMLButtonElement>) => void;
 
 // common component types
-export type RegularButtonProps = {
+export interface RegularButtonProps {
   handleClick: HandleEvent;
   children: React.ReactNode;
-};
+}
 
-export type HandleSubmitProps = { handleSubmit: HandleEvent };
-export type StartGameBtnProps = HandleSubmitProps;
-export type GameOverProps = { handleClick: HandleEvent };
+export interface HandleSubmitProps {
+  handleSubmit: HandleEvent;
+}
+export interface GameOverProps {
+  handleClick: HandleEvent;
+}
 
-export type HomeLinkProps = {
+export interface HomeLinkProps {
   children: React.ReactNode;
   className?: string;
-};
+}
 
 // game data related types
-export type EmojiData = {
+export interface EmojiData {
   name?: string;
   category?: string;
   group?: string;
   htmlCode?: string[];
   unicode?: string[];
-};
+}
 
-export type MemoryCard = {
+export interface MemoryCard {
   name: string;
   index: number;
-};
+}
 
-export type MemoryCardListProps = {
+export interface MemoryCardListProps {
   handleClickAction: (name: string, index: number) => void;
   data: EmojiData[];
   selectedCards: MemoryCard[];
   matchedCards: MemoryCard[];
-};
+}
 
-export type MemoryCardItemProps = {
+export interface MemoryCardItemProps {
   name: string;
   index: number;
   htmlCode: string[];
   handleClickAction: (name: string, index: number) => void;
   selectedCards: MemoryCard[];
   matchedCards: MemoryCard[];
-};
+}
 
 // assistive tech info type
-export type AssistiveTechInfoProps = {
+export interface AssistiveTechInfoProps {
   emojisData: EmojiData[];
   matchedCards: MemoryCard[];
-};
-
+}
 
 // Emoji store types
-export type EmojiStore = {
+export interface EmojiStore {
   emojisdata: EmojiData[];
   isGameOn: boolean;
   matchedCards: MemoryCard[];
@@ -63,4 +65,4 @@ export type EmojiStore = {
   setGameOn: (isGameOn: boolean) => void;
   setMatchedCards: (cards: MemoryCard[]) => void;
   setAreAllCardsMatched: (areAllCardsMatched: boolean) => void;
-};
+}
