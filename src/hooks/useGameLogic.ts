@@ -34,6 +34,7 @@ export function useGameLogic() {
     setEmojis([]);
   }, [setGameOn, setAreAllCardsMatched, setMatchedCards, setEmojis]);
 
+  
   // get emoji data from API
   const getEmojiDatafromAPI = useCallback(async () => {
     if (isLoading) return;
@@ -52,10 +53,11 @@ export function useGameLogic() {
 
       setEmojis(dataSlice);
       setGameOn(true);
+      return true;
     } catch (error) {
       console.error("Error: ", error);
       useEmojiStore.getState().setIsError(true);
-      return null;
+      return false;
     } finally {
       setIsLoading(false);
     }
