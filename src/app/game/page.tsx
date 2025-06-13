@@ -13,6 +13,7 @@ import Confetti from "react-confetti";
 export default function GamePage() {
   const router = useRouter();
   const isError = useEmojiStore((state) => state.isError);
+  const isFirstRender = useEmojiStore((state) => state.isFirstRender);
   const emojisData = useEmojiStore((state) => state.emojisdata);
   const areAllCardsMatched = useEmojiStore((state) => state.areAllCardsMatched);
   const { startGame, resetGame, handleFormChange } = useGameLogic();
@@ -41,7 +42,7 @@ export default function GamePage() {
         </>
       )}
       {emojisData.length === 0 ? (
-        <Form handleSubmit={startGame} handleChange={handleFormChange}/>
+        <Form handleSubmit={startGame} handleChange={handleFormChange} isFirstRender={isFirstRender}/>
       ) : (
         <MemoryCardList
           handleClickAction={turnCard}

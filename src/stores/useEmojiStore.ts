@@ -6,6 +6,7 @@ export const useEmojiStore = create<EmojiStore>((set) => ({
   isGameOn: false,
   matchedCards: [],
   isError: false,
+  isFirstRender: true,
   areAllCardsMatched: false,
   isLoading: false,
   formData: { category: "animals-and-nature", number: 10 }, 
@@ -16,4 +17,5 @@ export const useEmojiStore = create<EmojiStore>((set) => ({
   setMatchedCards: (cards) => set({ matchedCards: cards }),
   setAreAllCardsMatched: (areAllCardsMatched) => set({ areAllCardsMatched }),
   setIsError: (isError) => set({ isError }),
+  setIsFirstRender: (isFirstRender) => set({ isFirstRender }),
 }));

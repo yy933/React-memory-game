@@ -8,6 +8,7 @@ import { useGameLogic } from "@/hooks/useGameLogic";
 export default function Home() {
   const isError = useEmojiStore((state) => state.isError);
   const isGameOn = useEmojiStore((state) => state.isGameOn);
+  const isFirstRender = useEmojiStore((state) => state.isFirstRender);
   const { startGame, handleFormChange, resetError } = useGameLogic();
   return (
     <main>
@@ -18,6 +19,7 @@ export default function Home() {
           <Form
             handleSubmit={startGame}
             handleChange={handleFormChange}
+            isFirstRender={isFirstRender}
           />
         )
       )}

@@ -15,6 +15,7 @@ export interface HandleSubmitProps {
 // Form related components props type
 export interface FormProps extends HandleSubmitProps {
   handleChange: HandleChange;
+  isFirstRender: boolean;
 }
 
 export interface SelectProps {
@@ -89,6 +90,7 @@ export interface EmojiStore {
   isGameOn: boolean;
   matchedCards: MemoryCard[];
   isError: boolean;
+  isFirstRender: boolean;
   areAllCardsMatched: boolean;
   isLoading: boolean;
   formData: formData;
@@ -99,4 +101,5 @@ export interface EmojiStore {
   setMatchedCards: (cards: MemoryCard[]) => void;
   setAreAllCardsMatched: (areAllCardsMatched: boolean) => void;
   setIsError: (isError: boolean) => void;
+  setIsFirstRender: (isFirstRender: boolean) => void;
 }

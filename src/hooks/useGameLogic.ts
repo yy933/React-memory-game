@@ -13,6 +13,7 @@ export function useGameLogic() {
     emojisdata,
     isGameOn,
     isError,
+    isFirstRender,
     formData,
     setFormData,
     setEmojis,
@@ -20,10 +21,12 @@ export function useGameLogic() {
     setMatchedCards,
     setAreAllCardsMatched,
     setIsError,
+    setIsFirstRender
   } = useEmojiStore();
 
   // local state
   const [isLoading, setIsLoading] = useState(false);
+  // const [isFirstRender, setIsFirstRender] = useState(true);
 
   // Reset Game
   const resetGame = useCallback(() => {
@@ -53,13 +56,16 @@ export function useGameLogic() {
 
       setEmojis(dataSlice);
       setGameOn(true);
+      setIsFirstRender(false);
       return true;
     } catch (error) {
       console.error("Error: ", error);
       useEmojiStore.getState().setIsError(true);
+      setIsFirstRender(true);
       return false;
     } finally {
       setIsLoading(false);
+      setIsFirstRender(false);
     }
   }, [resetGame, setEmojis, setGameOn, setIsError]);
 
@@ -100,5 +106,6 @@ export function useGameLogic() {
     resetGame,
     handleFormChange,
     resetError,
+    isFirstRender,
   };
 }
