@@ -7,6 +7,9 @@ import { useRouter } from "next/navigation";
 
 export function useGameLogic() {
   const router = useRouter();
+  // Form data
+  const initialFormData = { category: "animals-and-nature"};
+  const [formData, setFormData] = useState(initialFormData);
 
   // Zustand actions & states
   const {
@@ -38,7 +41,7 @@ export function useGameLogic() {
       setIsLoading(true);
       resetGame();
       const response = await fetch(
-        "https://emojihub.yurace.pro/api/all/category/animals-and-nature"
+        `https://emojihub.yurace.pro/api/all/category/${formData.category}`
       );
       if (!response.ok) {
         throw new Error("Could not fetch data");
