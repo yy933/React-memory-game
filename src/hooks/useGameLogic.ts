@@ -3,27 +3,33 @@ import { useEmojiStore } from "@/stores/useEmojiStore";
 import { getRandomSample } from "@/utils/getRandomSample";
 import { EmojiData } from "@/types";
 import { useCallback, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export function useGameLogic() {
-  // Accessing the store state and actions
-  const emojisdata = useEmojiStore((state) => state.emojisdata);
-  const isGameOn = useEmojiStore((state) => state.isGameOn);
-  const setEmojidata = useEmojiStore((state) => state.setEmojis);
-  const setIsGameOn = useEmojiStore((state) => state.setGameOn);
-  const setMatchedCards = useEmojiStore((state) => state.setMatchedCards);
-  const setAreAllCardsMatched = useEmojiStore(
-    (state) => state.setAreAllCardsMatched
-  );
+  const router = useRouter();
+
+  // Zustand actions & states
+  const {
+    emojisdata,
+    isGameOn,
+    isError,
+    setEmojis,
+    setGameOn,
+    setMatchedCards,
+    setAreAllCardsMatched,
+    setIsError,
+  } = useEmojiStore();
+
+  // local state
   const [isLoading, setIsLoading] = useState(false);
 
   // Reset Game
   const resetGame = useCallback(() => {
-    setIsGameOn(false);
+    setGameOn(false);
     setAreAllCardsMatched(false);
     setMatchedCards([]);
-    setEmojidata([]);
-  }, [setIsGameOn, setAreAllCardsMatched, setMatchedCards, setEmojidata]);
-
+    setEmojis([]);
+  }, [setGameOn, setAreAllCardsMatched, setMatchedCards, setEmojis]);
 
   // get emoji data from API
   const getEmojiDatafromAPI = useCallback(async () => {
@@ -37,34 +43,46 @@ export function useGameLogic() {
       if (!response.ok) {
         throw new Error("Could not fetch data");
       }
+
       const data = (await response.json()) as EmojiData[];
       const dataSlice = getRandomSample(data, 10);
 
-      setEmojidata(dataSlice);
-      setIsGameOn(true);
+      setEmojis(dataSlice);
+      setGameOn(true);
     } catch (error) {
       console.error("Error: ", error);
-    } finally{
+      useEmojiStore.getState().setIsError(true);
+      return null;
+    } finally {
       setIsLoading(false);
     }
-  }, [resetGame, setEmojidata, setIsGameOn]);
+  }, [resetGame, setEmojis, setGameOn, setIsError]);
 
-
-  // Start Game
+  // Start Game: only route if data is fetched
   const startGame = useCallback(
-    (e: React.MouseEvent<HTMLButtonElement>) => {
+    async (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
-      getEmojiDatafromAPI();
+      const success = await getEmojiDatafromAPI();
+      if (success) {
+        router.push("/game");
+      }
     },
-    [getEmojiDatafromAPI]
+    [getEmojiDatafromAPI, router]
   );
 
-  
+  // reset error
+  function resetError() {
+    resetGame();
+    setIsError(false);
+  }
+
   return {
     isGameOn,
+    isError,
     startGame,
     emojisdata,
     getEmojiDatafromAPI,
     resetGame,
+    resetError,
   };
 }

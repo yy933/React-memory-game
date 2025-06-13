@@ -14,6 +14,10 @@ export interface GameOverProps {
   handleClick: HandleEvent;
 }
 
+export interface ErrorCardProps {
+  handleClick: HandleEvent;
+}
+
 export interface HomeLinkProps {
   children: React.ReactNode;
   className?: string;
@@ -60,9 +64,13 @@ export interface EmojiStore {
   emojisdata: EmojiData[];
   isGameOn: boolean;
   matchedCards: MemoryCard[];
+  isError: boolean;
   areAllCardsMatched: boolean;
+  isLoading: boolean,
+setIsLoading: (isLoading: boolean) => void,
   setEmojis: (emojis: EmojiData[]) => void;
   setGameOn: (isGameOn: boolean) => void;
   setMatchedCards: (cards: MemoryCard[]) => void;
   setAreAllCardsMatched: (areAllCardsMatched: boolean) => void;
+  setIsError: (isError: boolean) => void;
 }
