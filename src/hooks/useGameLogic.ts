@@ -2,6 +2,7 @@
 import { useEmojiStore } from "@/stores/useEmojiStore";
 import { getRandomSample } from "@/utils/getRandomSample";
 import { EmojiData } from "@/types";
+import { fetchEmojisByCategory } from "@/services/emojiService";
 import { useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -26,7 +27,7 @@ export function useGameLogic() {
 
   // local state
   const [isLoading, setIsLoading] = useState(false);
-  // const [isFirstRender, setIsFirstRender] = useState(true);
+  
 
   // Reset Game
   const resetGame = useCallback(() => {
@@ -43,15 +44,7 @@ export function useGameLogic() {
       setIsLoading(true);
       resetGame();
       const currentFormData = useEmojiStore.getState().formData;
-
-      const response = await fetch(
-        `https://emojihub.yurace.pro/api/all/category/${currentFormData.category}`
-      );
-      if (!response.ok) {
-        throw new Error("Could not fetch data");
-      }
-
-      const data = (await response.json()) as EmojiData[];
+      const data = await fetchEmojisByCategory(currentFormData.category)
       const dataSlice = getRandomSample(data, currentFormData.number / 2);
 
       setEmojis(dataSlice);
