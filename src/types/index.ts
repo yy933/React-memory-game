@@ -1,27 +1,30 @@
 // handle event type
-export type HandleEvent = (e: React.MouseEvent<HTMLButtonElement>) => void;
+export type HandleMouseEvent = (e: React.MouseEvent<HTMLButtonElement>) => void;
+export type HandleChange = (e: React.ChangeEvent<HTMLSelectElement>) => void;
 
 // common component types
 export interface RegularButtonProps {
-  handleClick: HandleEvent;
+  handleClick: HandleMouseEvent;
   children: React.ReactNode;
 }
 
 export interface HandleSubmitProps {
-  handleSubmit: HandleEvent;
+  handleSubmit: HandleMouseEvent;
 }
 
 export interface FormProps extends HandleSubmitProps {
-  handleChange: (
-    e: React.ChangeEvent<HTMLSelectElement>
-  ) => void;
+  handleChange: HandleChange
+}
+
+export interface SelectProps {
+  handleChange: HandleChange
 }
 export interface GameOverProps {
-  handleClick: HandleEvent;
+  handleClick: HandleMouseEvent;
 }
 
 export interface ErrorCardProps {
-  handleClick: HandleEvent;
+  handleClick: HandleMouseEvent;
 }
 
 export interface HomeLinkProps {
