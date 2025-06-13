@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import MemoryCardList from "@/components/MemoryCardList";
 import AssistiveTechInfo from "@/components/AssistiveTechInfo";
 import GameOver from "@/components/GameOver";
-import StartGameBtn from "@/components/StartGameBtn";
+import Form from "@/components/Form";
 import Confetti from "react-confetti";
 
 export default function GamePage() {
@@ -15,10 +15,10 @@ export default function GamePage() {
   const isError = useEmojiStore((state) => state.isError);
   const emojisData = useEmojiStore((state) => state.emojisdata);
   const areAllCardsMatched = useEmojiStore((state) => state.areAllCardsMatched);
-  const { startGame, resetGame } = useGameLogic();
+  const { startGame, resetGame, handleFormChange } = useGameLogic();
   const { turnCard, selectedCards, matchedCards, resetSelectedCards } =
     useMatchingLogic();
-    
+
   // If there is an error, redirect to the home page
   useEffect(() => {
     if (isError) {
@@ -41,7 +41,7 @@ export default function GamePage() {
         </>
       )}
       {emojisData.length === 0 ? (
-        <StartGameBtn handleSubmit={startGame} />
+        <Form handleSubmit={startGame} handleChange={handleFormChange}/>
       ) : (
         <MemoryCardList
           handleClickAction={turnCard}

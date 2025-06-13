@@ -10,6 +10,12 @@ export interface RegularButtonProps {
 export interface HandleSubmitProps {
   handleSubmit: HandleEvent;
 }
+
+export interface FormProps extends HandleSubmitProps {
+  handleChange: (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => void;
+}
 export interface GameOverProps {
   handleClick: HandleEvent;
 }
@@ -30,6 +36,11 @@ export interface EmojiData {
   group?: string;
   htmlCode?: string[];
   unicode?: string[];
+}
+
+export interface formData {
+  category: string;
+  number: number;
 }
 
 export interface MemoryCard {
@@ -66,8 +77,10 @@ export interface EmojiStore {
   matchedCards: MemoryCard[];
   isError: boolean;
   areAllCardsMatched: boolean;
-  isLoading: boolean,
-setIsLoading: (isLoading: boolean) => void,
+  isLoading: boolean;
+  formData: formData;
+  setFormData: (formData: { category: string; number: number }) => void;
+  setIsLoading: (isLoading: boolean) => void;
   setEmojis: (emojis: EmojiData[]) => void;
   setGameOn: (isGameOn: boolean) => void;
   setMatchedCards: (cards: MemoryCard[]) => void;

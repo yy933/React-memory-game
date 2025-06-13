@@ -151,7 +151,8 @@ select {
   color: var(--light-primary);
   font-family: inherit;
   padding: 0.5em;
-  border: 1px solid var(--dark-primary);
+  margin-bottom: 2.5rem;
+  border: 1px solid var(--light-primary);
   border-radius: 0.5em;
   cursor: pointer;
 }

@@ -7,15 +7,14 @@ import { useRouter } from "next/navigation";
 
 export function useGameLogic() {
   const router = useRouter();
-  // Form data
-  const initialFormData = { category: "animals-and-nature"};
-  const [formData, setFormData] = useState(initialFormData);
 
   // Zustand actions & states
   const {
     emojisdata,
     isGameOn,
     isError,
+    formData,
+    setFormData,
     setEmojis,
     setGameOn,
     setMatchedCards,
@@ -34,22 +33,23 @@ export function useGameLogic() {
     setEmojis([]);
   }, [setGameOn, setAreAllCardsMatched, setMatchedCards, setEmojis]);
 
-  
   // get emoji data from API
   const getEmojiDatafromAPI = useCallback(async () => {
     if (isLoading) return;
     try {
       setIsLoading(true);
       resetGame();
+      const currentFormData = useEmojiStore.getState().formData;
+
       const response = await fetch(
-        `https://emojihub.yurace.pro/api/all/category/${formData.category}`
+        `https://emojihub.yurace.pro/api/all/category/${currentFormData.category}`
       );
       if (!response.ok) {
         throw new Error("Could not fetch data");
       }
 
       const data = (await response.json()) as EmojiData[];
-      const dataSlice = getRandomSample(data, 10);
+      const dataSlice = getRandomSample(data, currentFormData.number / 2);
 
       setEmojis(dataSlice);
       setGameOn(true);
@@ -75,6 +75,16 @@ export function useGameLogic() {
     [getEmojiDatafromAPI, router]
   );
 
+  // handle form submission
+  function handleFormChange(e: React.ChangeEvent<HTMLSelectElement>) {
+    const { name, value } = e.target;
+
+    setFormData({
+      ...formData,
+      [name]: name === "number" ? Number(value) : value,
+    });
+  }
+
   // reset error
   function resetError() {
     resetGame();
@@ -88,6 +98,7 @@ export function useGameLogic() {
     emojisdata,
     getEmojiDatafromAPI,
     resetGame,
+    handleFormChange,
     resetError,
   };
 }
