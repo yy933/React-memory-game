@@ -12,13 +12,23 @@ export interface HandleSubmitProps {
   handleSubmit: HandleMouseEvent;
 }
 
+// Form related components props type
 export interface FormProps extends HandleSubmitProps {
-  handleChange: HandleChange
+  handleChange: HandleChange;
 }
 
 export interface SelectProps {
-  handleChange: HandleChange
+  handleChange: HandleChange;
 }
+
+export interface OptionProps {
+  valueArray: {
+    name?: string;
+    value: string;
+  }[];
+}
+
+// GameOver related components props
 export interface GameOverProps {
   handleClick: HandleMouseEvent;
 }
