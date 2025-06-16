@@ -74,8 +74,8 @@ export interface MemoryCardItemProps {
   index: number;
   htmlCode: string[];
   handleClickAction: (name: string, index: number) => void;
-  selectedCards: MemoryCard[];
-  matchedCards: MemoryCard[];
+  selectedSet: Set<number>;
+  matchedSet: Set<number>;
 }
 
 // assistive tech info type

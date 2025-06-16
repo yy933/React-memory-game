@@ -2,29 +2,25 @@
 import clsx from "clsx";
 import { MemoryCardItemProps } from "@/types";
 import DOMPurify from "dompurify";
+import React from "react";
 
-
-export default function MemoryCardItem({
+const MemoryCardItem = React.memo(function MemoryCardItem({
   name,
   index,
   htmlCode,
   handleClickAction,
-  selectedCards,
-  matchedCards,
+  selectedSet,
+  matchedSet,
 }: MemoryCardItemProps) {
-  const isSelected: boolean =
-    Array.isArray(selectedCards) &&
-    selectedCards.some((card) => card.index === index);
-  const isMatched: boolean =
-    Array.isArray(matchedCards) &&
-    matchedCards.some((card) => card.index === index);
+  const isSelected = selectedSet.has(index);
+  const isMatched = matchedSet.has(index);
 
   const handleClick = () => {
     if (!isSelected && !isMatched) {
       handleClickAction(name, index);
     }
   };
-  const safeHtmlCode = DOMPurify.sanitize(htmlCode.join(""))
+  const safeHtmlCode = DOMPurify.sanitize(htmlCode.join(""));
   const btnAria = isMatched
     ? `${name}. Matched.`
     : isSelected
@@ -52,4 +48,6 @@ export default function MemoryCardItem({
       </button>
     </li>
   );
-}
+});
+
+export default MemoryCardItem;
