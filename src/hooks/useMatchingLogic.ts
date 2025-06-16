@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useEmojiStore } from "@/stores/useEmojiStore";
 export function useMatchingLogic() {
   const emojisdata = useEmojiStore((state) => state.emojisdata);
@@ -40,19 +40,19 @@ export function useMatchingLogic() {
   }, [matchedCards, emojisdata, setAreAllCardsMatched]);
 
   // when user selecting a card, add it to selected cards array
-  function turnCard(name: string, index: number) {
-    const selectedCardEntry = selectedCards.find(
-      (card) => card.index === index
-    );
-    if (!selectedCardEntry && selectedCards.length < 2) {
-      setSelectedCards((prevSelectedCards) => [
-        ...prevSelectedCards,
-        { name, index }
-      ]);
-    } else if (!selectedCardEntry && selectedCards.length === 2) {
-      setSelectedCards([{ name, index }]);
-    }
+const turnCard = useCallback((name: string, index: number) => {
+  const selectedCardEntry = selectedCards.find(
+    (card) => card.index === index
+  );
+  if (!selectedCardEntry && selectedCards.length < 2) {
+    setSelectedCards((prevSelectedCards) => [
+      ...prevSelectedCards,
+      { name, index }
+    ]);
+  } else if (!selectedCardEntry && selectedCards.length === 2) {
+    setSelectedCards([{ name, index }]);
   }
+},[selectedCards])
 
   function resetSelectedCards() {
     setSelectedCards([]);
