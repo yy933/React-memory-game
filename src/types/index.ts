@@ -45,11 +45,16 @@ export interface HomeLinkProps {
 
 // game data related types
 export interface EmojiData {
+  htmlString: string;
   name?: string;
   category?: string;
   group?: string;
   htmlCode?: string[];
   unicode?: string[];
+}
+
+export interface SanitizedEmojiData extends EmojiData {
+  htmlString: string;
 }
 
 export interface formData {
@@ -62,9 +67,11 @@ export interface MemoryCard {
   index: number;
 }
 
-export interface MemoryCardListProps {
+export interface MemoryCardListProps<
+  T extends { htmlString: string } = SanitizedEmojiData
+> {
   handleClickAction: (name: string, index: number) => void;
-  data: EmojiData[];
+  data: T[];
   selectedCards: MemoryCard[];
   matchedCards: MemoryCard[];
 }
@@ -72,7 +79,7 @@ export interface MemoryCardListProps {
 export interface MemoryCardItemProps {
   name: string;
   index: number;
-  htmlCode: string[];
+  htmlString: string;
   handleClickAction: (name: string, index: number) => void;
   selectedSet: Set<number>;
   matchedSet: Set<number>;

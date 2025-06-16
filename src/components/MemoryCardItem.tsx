@@ -1,13 +1,12 @@
 "use client";
 import clsx from "clsx";
 import { MemoryCardItemProps } from "@/types";
-import DOMPurify from "dompurify";
 import React from "react";
 
 const MemoryCardItem = React.memo(function MemoryCardItem({
   name,
   index,
-  htmlCode,
+  htmlString,
   handleClickAction,
   selectedSet,
   matchedSet,
@@ -20,7 +19,7 @@ const MemoryCardItem = React.memo(function MemoryCardItem({
       handleClickAction(name, index);
     }
   };
-  const safeHtmlCode = DOMPurify.sanitize(htmlCode.join(""));
+ 
   const btnAria = isMatched
     ? `${name}. Matched.`
     : isSelected
@@ -42,7 +41,7 @@ const MemoryCardItem = React.memo(function MemoryCardItem({
       >
         <div
           className={clsx("card-face", "card-face--front")}
-          dangerouslySetInnerHTML={{ __html: safeHtmlCode }}
+          dangerouslySetInnerHTML={{ __html: htmlString }}
         />
         <div className={clsx("card-face", "card-face--back")}>?</div>
       </button>

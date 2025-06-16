@@ -7,7 +7,7 @@ export default function MemoryCard({
   handleClickAction,
   data,
   selectedCards,
-  matchedCards
+  matchedCards,
 }: MemoryCardListProps) {
   const selectedSet = useMemo(
     () => new Set(selectedCards.map((c) => c.index)),
@@ -22,21 +22,21 @@ export default function MemoryCard({
     return null;
   }
 
-  
   return (
     <ul className="card-container">
-      {data.map((emojiData, index) =>{ 
+      {data.map((emojiData, index) => {
         return (
           <MemoryCardItem
             key={index}
             name={emojiData.name ?? "unknown"}
             index={index}
-            htmlCode={emojiData?.htmlCode ?? []}
+            htmlString={emojiData.htmlString}
             handleClickAction={handleClickAction}
             selectedSet={selectedSet}
             matchedSet={matchedSet}
           />
-        );})}
+        );
+      })}
     </ul>
   );
 }

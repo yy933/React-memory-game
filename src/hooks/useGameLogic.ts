@@ -1,10 +1,11 @@
 "use client";
 import { useEmojiStore } from "@/stores/useEmojiStore";
 import { getRandomSample } from "@/utils/getRandomSample";
-import { EmojiData } from "@/types";
 import { fetchEmojisByCategory } from "@/services/emojiService";
 import { useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
+import { SanitizedEmojiData } from "@/types";
+import DOMPurify from "dompurify";
 
 export function useGameLogic() {
   const router = useRouter();
@@ -46,8 +47,14 @@ export function useGameLogic() {
       const currentFormData = useEmojiStore.getState().formData;
       const data = await fetchEmojisByCategory(currentFormData.category)
       const dataSlice = getRandomSample(data, currentFormData.number / 2);
+      const cleanData: SanitizedEmojiData[] = dataSlice.map((emoji) => {
+        return {
+          ...emoji,
+          htmlString: DOMPurify.sanitize((emoji.htmlCode ?? []).join("")),
+        };
+      });
 
-      setEmojis(dataSlice);
+      setEmojis(cleanData);
       setGameOn(true);
       setIsFirstRender(false);
       return true;
