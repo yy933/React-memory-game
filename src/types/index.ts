@@ -57,7 +57,7 @@ export interface SanitizedEmojiData extends EmojiData {
   htmlString: string;
 }
 
-export interface formData {
+export interface FormData {
   category: string;
   number: number;
 }
@@ -100,7 +100,7 @@ export interface EmojiStore {
   isFirstRender: boolean;
   areAllCardsMatched: boolean;
   isLoading: boolean;
-  formData: formData;
+  formData: FormData;
   setFormData: (formData: { category: string; number: number }) => void;
   setIsLoading: (isLoading: boolean) => void;
   setEmojis: (emojis: EmojiData[]) => void;

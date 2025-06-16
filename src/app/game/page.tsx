@@ -2,6 +2,7 @@
 import { useEmojiStore } from "@/stores/useEmojiStore";
 import { useGameLogic } from "@/hooks/useGameLogic";
 import { useMatchingLogic } from "@/hooks/useMatchingLogic";
+import { useClearEmojisCacheOnUnload } from "@/services/emojiService";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import MemoryCardList from "@/components/MemoryCardList";
@@ -19,6 +20,9 @@ export default function GamePage() {
   const { startGame, resetGame, handleFormChange } = useGameLogic();
   const { turnCard, selectedCards, matchedCards, resetSelectedCards } =
     useMatchingLogic();
+
+  // Clear the emojis cache when the page is unloaded
+  useClearEmojisCacheOnUnload();
 
   // If there is an error, redirect to the home page
   useEffect(() => {
@@ -42,7 +46,11 @@ export default function GamePage() {
         </>
       )}
       {emojisData.length === 0 ? (
-        <Form handleSubmit={startGame} handleChange={handleFormChange} isFirstRender={isFirstRender}/>
+        <Form
+          handleSubmit={startGame}
+          handleChange={handleFormChange}
+          isFirstRender={isFirstRender}
+        />
       ) : (
         <MemoryCardList
           handleClickAction={turnCard}

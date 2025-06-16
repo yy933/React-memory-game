@@ -4,7 +4,6 @@ import { getRandomSample } from "@/utils/getRandomSample";
 import { fetchEmojisByCategory } from "@/services/emojiService";
 import { useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
-import { SanitizedEmojiData } from "@/types";
 import DOMPurify from "dompurify";
 
 export function useGameLogic() {
@@ -23,12 +22,11 @@ export function useGameLogic() {
     setMatchedCards,
     setAreAllCardsMatched,
     setIsError,
-    setIsFirstRender
+    setIsFirstRender,
   } = useEmojiStore();
 
   // local state
   const [isLoading, setIsLoading] = useState(false);
-  
 
   // Reset Game
   const resetGame = useCallback(() => {
@@ -41,13 +39,18 @@ export function useGameLogic() {
   // get emoji data from API
   const getEmojiDatafromAPI = useCallback(async () => {
     if (isLoading) return;
+
+    setIsLoading(true);
+    resetGame();
+
     try {
-      setIsLoading(true);
-      resetGame();
-      const currentFormData = useEmojiStore.getState().formData;
-      const data = await fetchEmojisByCategory(currentFormData.category)
-      const dataSlice = getRandomSample(data, currentFormData.number / 2);
-      const cleanData: SanitizedEmojiData[] = dataSlice.map((emoji) => {
+      const { formData } = useEmojiStore.getState();
+      const data = await fetchEmojisByCategory(formData.category);
+      if (!data || data.length < formData.number / 2) {
+        throw new Error("Not enough emoji data returned from API.");
+      }
+      const dataSlice = getRandomSample(data, formData.number / 2);
+      const cleanData = dataSlice.map((emoji) => {
         return {
           ...emoji,
           htmlString: DOMPurify.sanitize((emoji.htmlCode ?? []).join("")),
