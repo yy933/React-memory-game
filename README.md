@@ -3,6 +3,8 @@ A classic memory card matching game built with React and Next.js. Test your memo
 
 ## See live demo [here](https://react-memory-game-jade-eight.vercel.app/) !
 
+![Demo_image](public\React-memory-game-demo.png)
+
 ## Game Features
 
 * Card Matching: Flip cards to find matching pairs
